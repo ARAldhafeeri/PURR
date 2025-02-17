@@ -1,27 +1,26 @@
 import torch
 from transformers import pipeline
-from embedder import embedding_model 
-from graph import Graph
-from rl_reterival_agent import RLRetrievalAgent
-from store import Store
+from rl_reterival_agent import rra
+from graph import graph
+from store import store
 class Reasoner:
     """
       Agentic AI can enable LLMs to reason with pre-trained models
       Also in training via reverse engineering the Algorithm
     """
-    def __init__(self):    
+    def __init__(self, embedding_model):
         self.model_name = "meta-llama/Llama-3.2-1B-Instruct"
-        self.embedding_model = embedding_model
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.llm  = pipeline(
                 "text-generation",
                 model=self.model_name,
                 torch_dtype=torch.bfloat16,
                 device_map=self.device,
-        )
-        self.rl_agent = RLRetrievalAgent()
-        self.store = Store()
-        self.graph = Graph()
+            )
+        self.rl_agent = rra
+        self.store = store
+        self.graph = graph
+        self.embedding_model = embedding_model
 
      
 
@@ -84,7 +83,7 @@ Concept Description: {concept}
         concepts = self.store.neural_retrieval(query)
         analysis_chain = "<biological_analysis>\n"
         for concept in concepts:
-            details = self.knowledge_graph.nodes.get(concept, {})
+            details = self.graph.knowledge_graph.nodes.get(concept, {})
             analysis = self._llm_generate_thought(
                 concept,
                 details.get('type'),

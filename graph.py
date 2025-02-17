@@ -1,11 +1,9 @@
 import networkx as nx
 import numpy as np
-from embedder import embedding_model 
-from store import Store
+from embedder import embedding_model
+
 class Graph:
-    def __init__(self):
-      super().__init__()        
-      self.store = Store()
+    def __init__(self, embedding_model):    
       self.embedding_model = embedding_model
       self.knowledge_graph = self._build_knowledge_graph()
 
@@ -78,3 +76,4 @@ class Graph:
                 else:
                     # If the graph is empty, simply add the concept node
                     self.knowledge_graph.add_node(concept, embedding=concept_embed)
+graph = Graph(embedding_model)

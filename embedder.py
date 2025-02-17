@@ -8,4 +8,4 @@ class Embedder:
         self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 embedder = Embedder()
-embedding_model = embedder.embedding_model()
+embedding_model = embedder.embedding_model
