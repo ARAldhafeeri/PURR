@@ -67,7 +67,7 @@ Concept Description: {concept}
     def _llm_generate_final_response(self, analysis_chain):
         """"Generate final answer based on the concepts analyzes"""
         prompt_messages = [
-            {"role": "system", "content": "You are a scientific summarizer. Synthesize a rigorous, concise, and non-speculative biological conclusion based on the following analyses. Present the synthesis in a reasoned and structured manner using clear and accessible language. Directly output the synthesized conclusion."},
+            {"role": "system", "content": "You are a scientific summarizer. Synthesize a rigorous, concise, and non-speculative biological conclusion based on the following analyses. Present the synthesis in a reasoned and structured manner using clear and accessible language. Directly output the synthesized conclusion. If no Analysis return response to the query"},
             {"role": "user", "content": f"""Synthesize a biological conclusion from these analyses:\n{analysis_chain}"""}
         ]
 
